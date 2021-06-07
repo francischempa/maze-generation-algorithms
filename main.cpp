@@ -19,7 +19,6 @@
 #include <iostream>
 #include <stdexcept>
 #include <ctime>
-#include "file_system.h"
 
 /**
  * @brief   Main function.
@@ -33,7 +32,6 @@ int32_t main(void)
   uint32_t algorithm    = 0u;
   std::string filename  = "output/";
   time_t current_time   = 0u;
-  maze::file_system m_file_system;
   maze::solver m_solver;
   std::vector<std::vector<uint32_t>> maze;
   
@@ -69,10 +67,8 @@ int32_t main(void)
     m_maze.generate();                                    /**< The actual generation. */
     filename += "_Aldous_Broder.png";                     /**< Add the name of the algorithm into the filename. */
     maze = m_maze.get_maze();                             /**< Get the maze. */
-    m_file_system.save(maze, filename);                   /**< Save. */
     m_solver.dijkstra(maze, 0u, 1u, height-1u, width-2u); /**< Solve it. */
     filename.insert(filename.size()-4u, "_Solved");       /**< Rename the filename. */
-    m_file_system.save(maze, filename);                   /**< Save again. */
   }
   else if (2u == algorithm)
   {
@@ -82,10 +78,8 @@ int32_t main(void)
     m_maze.generate();
     filename += "_Binary_tree.png";
     maze = m_maze.get_maze();
-    m_file_system.save(maze, filename);
     m_solver.dijkstra(maze, 0u, 1u, height-1u, width-2u);
     filename.insert(filename.size()-4u, "_Solved");
-    m_file_system.save(maze, filename);
   }
   else if (3u == algorithm)
   {
@@ -95,10 +89,8 @@ int32_t main(void)
     m_maze.generate();
     filename += "_Kruskal.png";
     maze = m_maze.get_maze();
-    m_file_system.save(maze, filename);
     m_solver.dijkstra(maze, 0u, 1u, height-1u, width-2u);
     filename.insert(filename.size()-4u, "_Solved");
-    m_file_system.save(maze, filename);
   }
   else if (4u == algorithm)
   {
@@ -108,10 +100,8 @@ int32_t main(void)
     m_maze.generate();
     filename += "_Prim.png";
     maze = m_maze.get_maze();
-    m_file_system.save(maze, filename);
     m_solver.dijkstra(maze, 0u, 1u, height-1u, width-2u);
     filename.insert(filename.size()-4u, "_Solved");
-    m_file_system.save(maze, filename);
   }
   else if (5u == algorithm)
   {
@@ -121,10 +111,8 @@ int32_t main(void)
     m_maze.generate();
     filename += "_Recursive_backtracking.png";
     maze = m_maze.get_maze();
-    m_file_system.save(maze, filename);
     m_solver.dijkstra(maze, 0u, 1u, height-1u, width-2u);
     filename.insert(filename.size()-4u, "_Solved");
-    m_file_system.save(maze, filename);
   }
   else if (6u == algorithm)
   {
@@ -134,10 +122,8 @@ int32_t main(void)
     m_maze.generate();
     filename += "_Recursive_division.png";
     maze = m_maze.get_maze();
-    m_file_system.save(maze, filename);
     m_solver.dijkstra(maze, 0u, 1u, height-1u, width-2u);
     filename.insert(filename.size()-4u, "_Solved");
-    m_file_system.save(maze, filename);
   }
   else
   {
@@ -145,6 +131,15 @@ int32_t main(void)
   }
 
   std::cout << "\nMaze generated and saved!\n\n";
+
+  for(int i=0; i<maze.size(); i++)
+  {
+    for(int j=0; j<maze[i].size(); j++)
+    {
+      std::cout << maze[i][j] << " ";
+    }
+    std::cout << "\n";
+  }
 
   return 0;
 }
